@@ -1,0 +1,40 @@
+
+import { useEffect, useState } from "react";
+import Blog from "../component/Blog";
+import Loader from "../component/Loader";
+import fetchData from "../assets/constants/fetchData";
+
+const Blogs = ({ category, loading, Setloading }) => {
+  const [blogs, setBlogs] = useState([]);
+  const [error, Seterr] = useState("");
+
+  useEffect(() => {
+    fetchData(`http://localhost:4400/api/blog/category/${category}`, "GET")
+      .then((res) => {
+        console.log(res.blogs);
+        setBlogs(res.blogs);
+        Setloading(false);
+      })
+      .catch((err) => {
+        Seterr(err.message);
+        console.log(err);
+      });
+  }, [category]);
+
+  return (
+    <>
+      {loading ? (
+        <Loader error={error} />
+      ) : (
+        <div className="flex  mt-3  justify-center gap-10  items-center flex-wrap">
+          {blogs.length > 0 &&
+            blogs.map((data) => {
+              return <Blog blog={data} key={data._id} />;
+            })}
+        </div>
+      )}
+    </>
+  );
+};
+
+export default Blogs;
