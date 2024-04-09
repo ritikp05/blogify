@@ -2,6 +2,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom"
 import { FaRegUserCircle } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
+import { RiDeleteBinLine } from "react-icons/ri";
+
 
 
 
@@ -48,15 +51,15 @@ const SingleBlog = () => {
                 </div>
                 <div className="flex flex-col sm:flex-row  items-center  mb-1 gap-1 sm:gap-4 mr-2">
 
-                    <button className="bg-blue-600 hover:bg-blue-700 px-5 py-1 rounded-xl font-Bubbler text-base tracking-widest One text-white">
+                    <button className=" rounded-xl font-Bubbler  tracking-widest One text-blue-500 text-xl">
                         <Link to={`/update/${id}`}>
-                            Edit
+                        <FaEdit />
                         </Link>
                     </button>
 
                     <button className="bg-red-500 hover:bg-red-600 px-4 py-1 rounded-xl font-Bubbler text-base tracking-widest One text-white"
                         onClick={Handeldelete}>
-                        Delete
+                       <RiDeleteBinLine />
                     </button>
                 </div>
 

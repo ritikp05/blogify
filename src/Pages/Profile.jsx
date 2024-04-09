@@ -11,7 +11,7 @@ const Profile = ({ setLogin }) => {
   function logoutUser() {
     localStorage.removeItem("token");
     localStorage.removeItem("login")
-    localStorage.setItem("UserCredentials", {});
+    localStorage.removeItem("UserCredentials");
     window.location.reload();
   }
 

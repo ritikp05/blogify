@@ -2,7 +2,8 @@ export default function Islogin() {
   const islogin = localStorage.getItem("login");
   const token = localStorage.getItem("token");
   const UserCredentials = localStorage.getItem("UserCredentials");
-  if (islogin && token !== " " && UserCredentials != {}) {
+  const user = JSON.parse(UserCredentials);
+  if (islogin && token && user.hasOwnProperty("name")) {
     const item = JSON.parse(islogin);
     return item;
   } else return false;
@@ -10,10 +11,14 @@ export default function Islogin() {
 
 function UserCredentials() {
   const Credentials = localStorage.getItem("UserCredentials");
-  if (Credentials !== "") {
+  const user =  JSON?.parse(Credentials);
+  if (user?.hasOwnProperty("name")) {
     const item = JSON.parse(Credentials);
     return item;
-  } else return {};
+  } else {
+    localStorage.removeItem("UserCredentials", "token", "login");
+  return {}
+  }
 }
 
 export { UserCredentials };

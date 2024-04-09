@@ -7,7 +7,7 @@ const Model = ({ setLogin, setShowModel, login }) => {
     setLogin(false);
     setShowModel(false);
     localStorage.removeItem("token");
-    localStorage.setItem("UserCredentials", {});
+    localStorage.removeItem("UserCredentials");
     setLogin(false);
   }
 
