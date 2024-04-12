@@ -12,6 +12,8 @@ import Page404 from "./Pages/Page404";
 import Navbar from "./component/Navbar";
 import { AppContext } from "./context/DataContext";
 import ChangePassword from "./Pages/ChangePassword";
+import ConfirmEmail from "./Pages/ConfirmEmail";
+import ResetPassword from "./Pages/ResetPassword";
 
 const App = () => {
   const { login, setLogin } = useContext(AppContext);
@@ -75,6 +77,14 @@ const App = () => {
               <ChangePassword />
             </ProtectedRoute>
           }
+        />
+        <Route
+          path="/confirmemail"
+          element={login ? <Navigate to="/" /> : <ConfirmEmail />}
+        />
+        <Route
+          path="/resetpassword"
+          element={login ? <Navigate to="/" /> : <ResetPassword />}
         />
 
         <Route path="*" element={<Page404 />} />

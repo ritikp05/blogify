@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { FaRegEye,FaRegEyeSlash  } from "react-icons/fa6";
-// import { } from "react-icons/fa6";
 import { toast } from "react-toastify";
 import { useState } from "react";
 
@@ -93,6 +92,12 @@ const Login = ({ setLogin }) => {
               Register
             </Link>
           </p>
+
+             <Link to="/confirmemail" className="text-blue-700 hover:underline ">
+             Forgotten password?
+            
+            </Link>
+          
         </Form>
       </Formik>
     </>

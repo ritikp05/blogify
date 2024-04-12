@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { TextareaAutosize } from "@mui/material";
+import { toast } from "react-toastify";
 
 const UpdateBlog = () => {
   const { id } = useParams();
@@ -55,7 +56,7 @@ const UpdateBlog = () => {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      const { data } = await axios.put(
+      const data  = await axios.put(
         `http://localhost:4400/api/blog/update/${id}`,
         userData,
         {
@@ -65,12 +66,13 @@ const UpdateBlog = () => {
           },
         }
       );
-      console.log(data.msg);
+    toast.success("Blog updated successfully")
       navigate("/");
       window.location.reload;
     } catch (err) {
-      Seterror(err);
-      console.log(error);
+     toast.error(err.response.data.msg);
+      Seterror(err.response.data.msg);
+     
     }
   }
 
