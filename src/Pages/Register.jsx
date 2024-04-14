@@ -1,5 +1,4 @@
 import Button from "@mui/material/Button";
-// import axios from "axios";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -30,16 +29,17 @@ const Register = () => {
     });
   }
 
-  async function handleSubmit(userdata) {
+  async function handleSubmit(userdata,{resetForm}) {
     try {
       const response = await fetchData(
-        "http://localhost:4400/api/auth/register",
+        "/api/auth/register",
         "POST",
         "Register",
         userdata
       );
       response && navigate("/login");
       toast.success(response.data?.msg);
+      resetForm()
     } catch (err) {
       toast.error(err.response.data?.msg);
     }

@@ -1,12 +1,11 @@
-
 import React, { useState } from "react";
-import axios from "axios";
 import { FaRegEye } from "react-icons/fa6";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import fetchData from "../assets/constants/fetchData";
 
 const ChangePassword = () => {
   const [showPassword, setShowPassword] = useState({
@@ -25,7 +24,7 @@ const ChangePassword = () => {
     confirmPassword: Yup.string()
       .required("Please enter your password")
       .min(6)
-      .oneOf([Yup.ref("password"), null], "Does not match with field1!"),
+      .oneOf([Yup.ref("password"), null], "Confirm password is not matching"),
   });
 
   function passwordHandler() {
@@ -40,31 +39,26 @@ const ChangePassword = () => {
     });
   }
 
-  async function handleChangepassword(data) {
+  async function handleSubmit(data,{resetForm}) {
     try {
-      const res = await axios.put(
-        `http://localhost:4400/api/auth/updatepassword`,
-        data,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: localStorage.getItem("token"),
-          },
-        }
+      const response = await fetchData(
+        `/api/auth/updatepassword`,
+        "PUT",
+        "ChangePassword",
+        data
       );
-
-      console.log(res);
-      toast.success("Password updated successfully");
+      resetForm();
+      toast.success(response.data.msg);
       Navigate("/");
     } catch (err) {
-      console.log(err);
+      console.log(err.response.data.msg);
     }
   }
   return (
     <Formik
       initialValues={initialval}
       validationSchema={schema}
-      onSubmit={handleChangepassword}
+      onSubmit={handleSubmit}
     >
       <Form className="flex  justify-center items-center mt-20 ">
         <div className="bg-white rounded-lg shadow-sm shadow-black flex flex-col gap-3 p-8 max-w-md w-full">
@@ -77,6 +71,7 @@ const ChangePassword = () => {
               type={showPassword.password ? "text" : "password"}
               name="password"
               className="border-b-2 border-blue-700 w-10/12  outline-none"
+              placeholder="Enter new password"
             />
 
             {showPassword.password ? (
@@ -94,6 +89,7 @@ const ChangePassword = () => {
               type={showPassword.confirmPassword ? "text" : "password"}
               name="confirmPassword"
               className="border-b-2 border-blue-700 w-10/12 outline-none"
+              placeholder="Confirm new password"
             />
 
             {showPassword.confirmPassword ? (

@@ -1,10 +1,10 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom"
 import { FaRegUserCircle } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
 import { RiDeleteBinLine } from "react-icons/ri";
-
+import fetchData from "../assets/constants/fetchData";
+import {toast} from "react-toastify"
 
 
 
@@ -14,9 +14,8 @@ const SingleBlog = () => {
     const navigate = useNavigate();
 
     async function getsingleBlog() {
-        const { data } = await axios.get(`http://localhost:4400/api/blog/${id}`)
-        console.log(data)
-        setBlog(data.blog)
+        const response=await fetchData(`/api/blog/${id}`,"GET","SingleBlog")
+          setBlog(response.data.blog)
     }
 
     useEffect(() => {
@@ -25,19 +24,14 @@ const SingleBlog = () => {
 
     async function Handeldelete() {
         try {
-
-            const res = await axios.delete(`http://localhost:4400/api/blog/delete/${id}`,
-                {
-                    headers: {
-                        "Authorization": localStorage.getItem("token")
-                    }
-                }
-            )
-            console.log(res);
+const response=await fetchData(`/api/blog/delete/${id}`,"DELETE","SingleBlog")
+toast.success(response.data.msg);
+            console.log(response);
             navigate("/");
             window.location.reload;
         } catch (err) {
-            console.log(err);
+            toast.error(err.response.data.msg);
+            
         }
     }
 

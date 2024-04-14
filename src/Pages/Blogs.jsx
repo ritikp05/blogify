@@ -9,15 +9,16 @@ const Blogs = ({ category, loading, Setloading }) => {
   const [error, Seterr] = useState("");
 
   useEffect(() => {
-    fetchData(`http://localhost:4400/api/blog/category/${category}`, "GET","Blogs")
+    fetchData(`/api/blog/category/${category}`, "GET","Blogs")
       .then((res) => {
         console.log(res.blogs);
         setBlogs(res.blogs);
         Setloading(false);
       })
       .catch((err) => {
-        Seterr(err.message);
+
         console.log(err);
+        Seterr(err.message);
       });
   }, [category]);
 

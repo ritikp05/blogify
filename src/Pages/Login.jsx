@@ -1,11 +1,11 @@
 import Button from "@mui/material/Button";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
-import { FaRegEye,FaRegEyeSlash  } from "react-icons/fa6";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import { toast } from "react-toastify";
 import { useState } from "react";
+import fetchData from "../assets/constants/fetchData";
 
 const initialvalue = {
   email: "",
@@ -26,20 +26,26 @@ const Login = ({ setLogin }) => {
       return !prev;
     });
   }
-  async function handleSubmi(filleddata) {
+  async function handleSubmit(filleddata,{resetForm}) {
     try {
-      const { data } = await axios.post(
-        "http://localhost:4400/api/auth/login",
+      const response = await fetchData(
+        "/api/auth/login",
+        "POST",
+        "Login",
         filleddata
       );
-      console.log(data);
-      localStorage.setItem("UserCredentials", JSON.stringify(data.user));
-      localStorage.setItem("token", data.token);
-      toast.success("Login sucessfull");
+      localStorage.setItem(
+        "UserCredentials",
+        JSON.stringify(response.data.user)
+      );
+      localStorage.setItem("token", response.data.token);
+      toast.success(response.data.msg);
       setLogin(true);
+      resetForm();
     } catch (err) {
       toast.error(err.response.data.msg);
       setLogin(false);
+      localStorage.removeItem("UserCredentials", "token", "login");
     }
   }
 
@@ -47,7 +53,7 @@ const Login = ({ setLogin }) => {
     <>
       <Formik
         initialValues={initialvalue}
-        onSubmit={handleSubmi}
+        onSubmit={handleSubmit}
         validationSchema={validate}
       >
         <Form className=" flex flex-col bg-slate-200 shadow-xl w-60 py-10 mx-auto  justify-center items-center mt-32 gap-4">
@@ -66,13 +72,16 @@ const Login = ({ setLogin }) => {
           </div>
           <div className="flex justify-center relative items-center">
             <Field
-             type={showpass ? "text" : "password"}
-             name="password"
+              type={showpass ? "text" : "password"}
+              name="password"
               placeholder="Enter your password"
               className="border-2 border-gray-400 outline-none rounded-r-full"
             />
             {showpass ? (
-              <FaRegEye className="text-xl absolute right-1" onClick={showPasswordHandler} />
+              <FaRegEye
+                className="text-xl absolute right-1"
+                onClick={showPasswordHandler}
+              />
             ) : (
               <FaRegEyeSlash
                 className="text-xl absolute right-1"
@@ -80,9 +89,9 @@ const Login = ({ setLogin }) => {
               />
             )}
           </div>
-            <div className="text-red-500 text-sm -mt-4">
-              <ErrorMessage name="password" />
-            </div>
+          <div className="text-red-500 text-sm -mt-4">
+            <ErrorMessage name="password" />
+          </div>
           <Button type="submit" variant="contained">
             Login
           </Button>
@@ -93,11 +102,9 @@ const Login = ({ setLogin }) => {
             </Link>
           </p>
 
-             <Link to="/confirmemail" className="text-blue-700 hover:underline ">
-             Forgotten password?
-            
-            </Link>
-          
+          <Link to="/confirmemail" className="text-blue-700 hover:underline ">
+            Forgotten password?
+          </Link>
         </Form>
       </Formik>
     </>

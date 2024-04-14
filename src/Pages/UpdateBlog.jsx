@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { TextareaAutosize } from "@mui/material";
 import { toast } from "react-toastify";
+import fetchData from "../assets/constants/fetchData";
 
 const UpdateBlog = () => {
   const { id } = useParams();
@@ -56,21 +57,15 @@ const UpdateBlog = () => {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      const data  = await axios.put(
-        `http://localhost:4400/api/blog/update/${id}`,
-        userData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: localStorage.getItem("token"),
-          },
-        }
-      );
-    toast.success("Blog updated successfully")
+    
+  const data= await fetchData(`/api/blog/update/${id}`,"PUT","UpdateBlog",userData);
+  console.log(data);    
+  toast.success("Blog updated successfully")
       navigate("/");
       window.location.reload;
     } catch (err) {
-     toast.error(err.response.data.msg);
+ console.log(err);
+      toast.error(err.response.data.msg);
       Seterror(err.response.data.msg);
      
     }

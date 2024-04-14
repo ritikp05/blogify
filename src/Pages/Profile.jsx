@@ -2,10 +2,9 @@ import React from "react";
 import { UserCredentials } from "../assets/islogin";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { FaUserCircle } from "react-icons/fa";
 
-const Profile = ({ setLogin }) => {
+const Profile = () => {
   const [userCredentials] = useState(UserCredentials());
   const navigate = useNavigate();
   function logoutUser() {

@@ -1,19 +1,23 @@
 import React, { useState } from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import fetchData from "../assets/constants/fetchData";
 
 const ResetPassword = () => {
   const [showPassword, setShowPassword] = useState(false);
-
+  const navigate=useNavigate()
+const initialValues={
+  otp: "",
+  email: "",
+  password: "",
+}
   function passwordHandler() {
     setShowPassword((prev) => !prev);
   }
 
-  const navigate = useNavigate();
   const validationSchema = Yup.object().shape({
     otp: Yup.number("otp must be a number").required("Please enter otp"),
     email: Yup.string()
@@ -22,16 +26,20 @@ const ResetPassword = () => {
     password: Yup.string().required("Please enter password"),
   });
 
-  async function handleSubmit(data) {
+  async function handleSubmit(data,{resetForm}) {
     try {
-      const response = await axios.post(
-        "http://localhost:4400/api/auth/resetpassword",
+      const response = await fetchData(
+        "/api/auth/resetpassword",
+        "PUT",
+        "ResetPassword",
         data
       );
       toast.success(response.data.msg);
+     navigate("/login"); 
       console.log(response);
+
+    resetForm();
     } catch (err) {
-      console.error(err.response.data.msg); 
       toast.error(err.response.data.msg);
     }
   }
@@ -39,11 +47,7 @@ const ResetPassword = () => {
   return (
     <div className="max-w-md mx-auto">
       <Formik
-        initialValues={{
-          otp: "",
-          email: "",
-          password: "",
-        }}
+        initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >

@@ -1,8 +1,9 @@
 import TextField from '@mui/material/TextField';
 import { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../component/Loader';
+import fetchData from '../assets/constants/fetchData';
+import { toast } from 'react-toastify';
 
 
 const CreateBlog = () => {
@@ -41,29 +42,20 @@ const CreateBlog = () => {
     async function handleSubmit(e) {
         e.preventDefault();
         if (!(userData.title && userData.description && userData.photo && userData.category)) {
-            alert("Please enter all fields");
+            toast.info("Please fill all fields");
             return
         }
         try {
             setLoading(true);
-            const { data } = await axios.post("http://localhost:4400/api/blog/create",
-                userData,
-                {
-                    headers: {
-
-                        "Content-Type": 'multipart/form-data',
-                        "Authorization": localStorage.getItem("token")
-                    }
-                }
-            );
-            console.log(data.msg)
+           const response= await fetchData("/api/blog/create","POST","CreateBlog",userData)
+            console.log(response)
             setLoading(true)
+            toast.success(response.data.msg)
             navigate("/");
             window.location.reload;
         } catch (err) {
+          toast.error(err.response.data.msg)
             Seterror(err.message);
-            console.log(error)
-            console.log(err);
         }
 
     }
