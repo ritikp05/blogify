@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
-import axios from "axios"; // Import Axios
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 
 const ResetPassword = () => {
-    const navigate=useNavigate()
+  const [showPassword, setShowPassword] = useState(false);
+
+  function passwordHandler() {
+    setShowPassword((prev) => !prev);
+  }
+
+  const navigate = useNavigate();
   const validationSchema = Yup.object().shape({
     otp: Yup.number("otp must be a number").required("Please enter otp"),
     email: Yup.string()
@@ -21,13 +28,11 @@ const ResetPassword = () => {
         "http://localhost:4400/api/auth/resetpassword",
         data
       );
-toast.success(response.data.msg)
-console.log(response);
-
+      toast.success(response.data.msg);
+      console.log(response);
     } catch (err) {
-      console.error(err.response.data.msg); // Log the error
- toast.error(err.response.data.msg); // Log the
-      // Handle error appropriately, e.g., show error message to the user
+      console.error(err.response.data.msg); 
+      toast.error(err.response.data.msg);
     }
   }
 
@@ -59,7 +64,6 @@ console.log(response);
             <div className="text-center">
               <ErrorMessage
                 name="otp"
-                component="p"
                 className="text-red-500 text-xs italic"
               />
             </div>
@@ -80,28 +84,41 @@ console.log(response);
             <div className="text-center">
               <ErrorMessage
                 name="email"
-                component="p"
                 className="text-red-500 text-xs italic"
               />
             </div>
           </div>
-          <div className="mb-6">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="password"
-            >
-              Password
-            </label>
-            <Field
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              name="password"
-              type="password"
-              placeholder="Enter password"
-            />
+          <div className=" mb-6">
+            <div className="relative">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="password"
+              >
+                Password
+              </label>
+              <Field
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                name="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="Enter password"
+              />
+
+              <button
+                className="absolute right-0 bottom-0 mb-2 mr-2 text-gray-600"
+                onClick={passwordHandler}
+                type="button"
+              >
+                {showPassword ? (
+                  <FaRegEye className="text-xl" />
+                ) : (
+                  <FaRegEyeSlash className="text-xl" />
+                )}
+              </button>
+            </div>
+
             <div className="text-center">
               <ErrorMessage
                 name="password"
-                component="p"
                 className="text-red-500 text-xs italic"
               />
             </div>
@@ -113,9 +130,13 @@ console.log(response);
             >
               Reset Password
             </button>
-            <button onClick={()=>navigate(-1)}    className="bg-purple-500 mx-auto hover:bg-purple-700 text-white font-bold py-2 px-6 rounded-2xl focus:outline-none focus:shadow-outline"
-           >Back</button>
-  
+            <button
+              type="button"
+              onClick={() => navigate(-1)}
+              className="bg-purple-500 mx-auto hover:bg-purple-700 text-white font-bold py-2 px-6 rounded-2xl focus:outline-none focus:shadow-outline"
+            >
+              Back
+            </button>
           </div>
         </Form>
       </Formik>

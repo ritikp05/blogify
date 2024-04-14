@@ -1,19 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-
+import {useNavigate} from "react-router-dom"
 import * as Yup from "yup";
 import axios from "axios";
 import { toast } from "react-toastify";
-import Loader from "../component/Loader";
-// m 'formik';
-// import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 
 const ConfirmEmail = () => {
-  // const [showPassword, setShowPassword] = useState(false);
-
-  // function passwordHandler() {
-  //   setShowPassword((prev) => !prev);
-  // }
+  const navigate=useNavigate()
    const shape = Yup.object().shape({
     email: Yup.string()
       .required("Please enter your email")
@@ -26,7 +19,7 @@ const ConfirmEmail = () => {
         data
       );
       toast.success("Otp sent to your email ✔️");
-     
+      navigate("/resetpassword")
     } catch (err) {
     toast.error(err.response.data.msg);
     }
@@ -59,21 +52,6 @@ const ConfirmEmail = () => {
             <ErrorMessage name="email" />
           </div>
         </div>
-        {/* <div className="relative mb-4">
-        <input
-          type={showPassword ? "text" : "password"}
-          id="password"
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter your Password"
-        />
-        <button
-          className="absolute right-0 bottom-0 mb-2 mr-2 text-gray-600"
-          onClick={passwordHandler}
-        >
-          {showPassword ? <FaRegEyeSlash className="text-xl" /> : <FaRegEye className="text-xl" />}
-        </button>
-      </div> */}
-      
          <button
         type="submit"
         className="w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:bg-blue-600"

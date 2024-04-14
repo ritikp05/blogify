@@ -1,11 +1,12 @@
 import Button from "@mui/material/Button";
-import axios from "axios";
+// import axios from "axios";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import { useState } from "react";
+import fetchData from "../assets/constants/fetchData";
 
 const initialval = {
   name: "",
@@ -31,13 +32,16 @@ const Register = () => {
 
   async function handleSubmit(userdata) {
     try {
-      const response = await axios.post(
+      const response = await fetchData(
         "http://localhost:4400/api/auth/register",
+        "POST",
+        "Register",
         userdata
       );
-      response.ok ? navigate("/login") : toast.error(response.data.msg);
+      response && navigate("/login");
+      toast.success(response.data?.msg);
     } catch (err) {
-      console.log(err);
+      toast.error(err.response.data?.msg);
     }
   }
 
@@ -67,10 +71,11 @@ const Register = () => {
           <div className="flex flex-col justify-center items-center">
             <Field
               name="email"
+              type="email"
               placeholder="Enter your email"
               className="border-2 border-gray-400 outline-none rounded-r-full"
             />
-          
+
             <div className="text-red-500 text-sm">
               <ErrorMessage name="email" />
             </div>
@@ -79,10 +84,10 @@ const Register = () => {
             <Field
               name="password"
               placeholder="Password"
-           type={showpass? "text" : "password" }
+              type={showpass ? "text" : "password"}
               className="border-2 border-gray-400 outline-none rounded-r-full "
             />
-          {showpass ? (
+            {showpass ? (
               <FaRegEye
                 className="text-xl absolute right-1"
                 onClick={showPasswordHandler}
@@ -94,9 +99,9 @@ const Register = () => {
               />
             )}
           </div>
-            <div className="text-red-500 text-sm -mt-4 ">
-              <ErrorMessage name="password" />
-            </div>
+          <div className="text-red-500 text-sm -mt-4 ">
+            <ErrorMessage name="password" />
+          </div>
           <Button type="submit" variant="contained">
             Sign up
           </Button>
