@@ -63,7 +63,9 @@ const initialValues={
               name="otp"
               type="number"
               placeholder="Enter OTP"
-            />
+              autoComplete="off"
+    
+          />
             <div className="text-center">
               <ErrorMessage
                 name="otp"
@@ -83,7 +85,9 @@ const initialValues={
               name="email"
               type="email"
               placeholder="Enter email address"
-            />
+              autoComplete="off"
+    
+    />
             <div className="text-center">
               <ErrorMessage
                 name="email"
@@ -104,7 +108,9 @@ const initialValues={
                 name="password"
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter password"
-              />
+                autoComplete="off"
+    
+    />
 
               <button
                 className="absolute right-0 bottom-0 mb-2 mr-2 text-gray-600"

@@ -65,7 +65,8 @@ const Login = ({ setLogin }) => {
               name="email"
               placeholder="Enter your email"
               className="border-2 rounded-r-full border-gray-400 outline-none"
-            />
+       autoComplete="off"
+       />
             <div className="text-red-500 text-sm">
               <ErrorMessage name="email" />
             </div>
@@ -76,6 +77,8 @@ const Login = ({ setLogin }) => {
               name="password"
               placeholder="Enter your password"
               className="border-2 border-gray-400 outline-none rounded-r-full"
+              autoComplete="off"
+    
             />
             {showpass ? (
               <FaRegEye

@@ -39,7 +39,7 @@ const ChangePassword = () => {
     });
   }
 
-  async function handleSubmit(data,{resetForm}) {
+  async function handleSubmit(data, { resetForm }) {
     try {
       const response = await fetchData(
         `/api/auth/updatepassword`,
@@ -72,6 +72,7 @@ const ChangePassword = () => {
               name="password"
               className="border-b-2 border-blue-700 w-10/12  outline-none"
               placeholder="Enter new password"
+              autoComplete="off"
             />
 
             {showPassword.password ? (
@@ -90,7 +91,9 @@ const ChangePassword = () => {
               name="confirmPassword"
               className="border-b-2 border-blue-700 w-10/12 outline-none"
               placeholder="Confirm new password"
-            />
+              autoComplete="off"
+    
+          />
 
             {showPassword.confirmPassword ? (
               <FaRegEye className="text-xl" onClick={confirmPasswordHandler} />

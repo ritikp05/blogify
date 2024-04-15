@@ -63,7 +63,9 @@ const Register = () => {
               type="text"
               placeholder="Enter your name"
               className="border-2 border-gray-400 outline-none rounded-r-full"
-            />
+              autoComplete="off"
+    
+           />
             <div className="text-red-500 text-sm">
               <ErrorMessage name="name" />
             </div>
@@ -74,7 +76,9 @@ const Register = () => {
               type="email"
               placeholder="Enter your email"
               className="border-2 border-gray-400 outline-none rounded-r-full"
-            />
+              autoComplete="off"
+    
+          />
 
             <div className="text-red-500 text-sm">
               <ErrorMessage name="email" />
@@ -86,7 +90,8 @@ const Register = () => {
               placeholder="Password"
               type={showpass ? "text" : "password"}
               className="border-2 border-gray-400 outline-none rounded-r-full "
-            />
+              autoComplete="off"
+           />
             {showpass ? (
               <FaRegEye
                 className="text-xl absolute right-1"
