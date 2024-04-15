@@ -11,8 +11,8 @@ const Profile = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("login")
     localStorage.removeItem("UserCredentials");
+    window.location.href = window.location.href;
     navigate("/login");
-    window.location.reload
   }
 
   function changePasswordHandler() {
