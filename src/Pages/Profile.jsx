@@ -8,10 +8,8 @@ const Profile = () => {
   const [userCredentials] = useState(UserCredentials());
   const navigate = useNavigate();
   function logoutUser() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("login")
-    localStorage.removeItem("UserCredentials");
-    window.location.reload;
+    localStorage.removeItem("token","login","UserCredentials");
+    navigate("/login");
   }
 
   function changePasswordHandler() {
