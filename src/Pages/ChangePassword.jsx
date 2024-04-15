@@ -51,7 +51,7 @@ const ChangePassword = () => {
       toast.success(response.data.msg);
       Navigate("/");
     } catch (err) {
-      console.log(err.response.data.msg);
+      toast.error(err.response.data.msg);
     }
   }
   return (

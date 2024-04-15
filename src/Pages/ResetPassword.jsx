@@ -36,8 +36,7 @@ const initialValues={
       );
       toast.success(response.data.msg);
      navigate("/login"); 
-      console.log(response);
-
+    
     resetForm();
     } catch (err) {
       toast.error(err.response.data.msg);

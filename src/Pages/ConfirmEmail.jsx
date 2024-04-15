@@ -24,7 +24,6 @@ const ConfirmEmail = () => {
         "ConfirmEmail",
         data
       );
-      console.log(response);
       setLoading(false)
       resetForm();
       toast.success("Otp sent to your email ✔️");

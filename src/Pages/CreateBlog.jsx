@@ -26,8 +26,7 @@ const CreateBlog = () => {
             return { ...prev, [name]: value }
 
         })
-        console.log(userData)
-    }
+        }
 
     function handlefile(e) {
         if (e.target.files && e.target.files.length > 0) {
@@ -48,13 +47,13 @@ const CreateBlog = () => {
         try {
             setLoading(true);
            const response= await fetchData("/api/blog/create","POST","CreateBlog",userData)
-            console.log(response)
             setLoading(true)
             toast.success(response.data.msg)
             navigate("/");
             window.location.reload;
         } catch (err) {
-          toast.error(err.response.data.msg)
+        setLoading(false)
+            toast.error(err.response.data.msg)
             Seterror(err.message);
         }
 
@@ -70,7 +69,8 @@ const CreateBlog = () => {
 
                         <TextField onChange={handleChange} name='title' value={userData.title} placeholder="Titile" variant="standard" className="border  border-gray-300 rounded-md px-4  focus:outline-none focus:border-blue-500 w-full mb-4" />
                         <TextField onChange={handleChange} name='description' value={userData.description} placeholder="Description" variant="standard" className="border border-gray-300  rounded-md px-4 py-2 resize-none focus:outline-none focus:border-blue-500 w-full mb-4" />
-                        <input type="file" id='category' name="photo" placeholder="Upload photo" onChange={handlefile}
+                        <input type="file" id='category' name="photo" placeholder="Upload photo" onChange={handlefile}     accept="image/*"
+        
                             className="mt-2 py-2 focus:outline-none w-full mb-4" />
                         <div className="flex items-center gap-4 mb-4">
                             <label htmlFor="category" className="text-lg">Choose a category:</label>
