@@ -1,17 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { UserCredentials } from "../assets/islogin";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
+import  { AppContext } from "../context/DataContext";
 
 const Profile = () => {
+  const { setLogin}=useContext(AppContext)
   const [userCredentials] = useState(UserCredentials());
   const navigate = useNavigate();
   function logoutUser() {
     localStorage.removeItem("token");
     localStorage.removeItem("login")
     localStorage.removeItem("UserCredentials");
-    window.location.href = window.location.href;
+    setLogin(false);
     navigate("/login");
   }
 
