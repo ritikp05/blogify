@@ -8,6 +8,7 @@ const Home = () => {
  
   const categroy = [
     { id: 1, name: "all" }, { id: 2, name: "technology" }, { id: 3, name: "travel" }, { id: 4, name: "food" }
+  ,{ id: 5, name: "fitness" }
   ]
 
 
