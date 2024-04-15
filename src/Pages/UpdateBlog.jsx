@@ -19,8 +19,7 @@ const UpdateBlog = () => {
   });
 
   async function getBlog() {
-    const { data } = await axios.get(`http://localhost:4400/api/blog/${id}`);
-    console.log(data.blog);
+    const {data}=await fetchData(`/api/blog/${id}`,"GET","UpdateBlog")
     setUserdata((prev) => {
       return {
         ...prev,
@@ -69,7 +68,6 @@ const UpdateBlog = () => {
       setLoading(false);
       toast.success("Blog updated successfully");
       navigate("/");
-      window.location.reload;
     } catch (err) {
       setLoading(false);
       toast.error(err.response.data.msg);

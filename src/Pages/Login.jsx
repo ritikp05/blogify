@@ -26,7 +26,7 @@ const Login = ({ setLogin }) => {
       return !prev;
     });
   }
-  async function handleSubmit(filleddata,{resetForm}) {
+  async function handleSubmit(filleddata, { resetForm }) {
     try {
       const response = await fetchData(
         "/api/auth/login",
@@ -56,7 +56,7 @@ const Login = ({ setLogin }) => {
         onSubmit={handleSubmit}
         validationSchema={validate}
       >
-        <Form className=" flex flex-col bg-slate-200 shadow-xl w-60 py-10 mx-auto  justify-center items-center mt-32 gap-4">
+        <Form className=" flex flex-col bg-slate-200 shadow-xl w-72 py-10 mx-auto  justify-center items-center mt-28 gap-5">
           <div className="flex flex-col justify-center items-center ">
             <p className="text-2xl mb-6 font-semibold text-blue-600 tracking-widest">
               Login
@@ -64,9 +64,9 @@ const Login = ({ setLogin }) => {
             <Field
               name="email"
               placeholder="Enter your email"
-              className="border-2 rounded-r-full border-gray-400 outline-none"
-       autoComplete="off"
-       />
+              className="border-2 rounded-r-full border-gray-400 w-56 outline-none"
+              autoComplete="off"
+            />
             <div className="text-red-500 text-sm">
               <ErrorMessage name="email" />
             </div>
@@ -76,9 +76,8 @@ const Login = ({ setLogin }) => {
               type={showpass ? "text" : "password"}
               name="password"
               placeholder="Enter your password"
-              className="border-2 border-gray-400 outline-none rounded-r-full"
+              className="border-2 border-gray-400 outline-none w-56 rounded-r-full"
               autoComplete="off"
-    
             />
             {showpass ? (
               <FaRegEye

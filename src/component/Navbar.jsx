@@ -13,7 +13,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="flex shadow-sm shadow-black bg-slate-800 text-white items-center z-50 sticky top-0 h-10 justify-between px-10">
+      <nav className="flex shadow-sm text-lg shadow-black bg-slate-800 text-white items-center z-50 sticky top-0 h-10 justify-between px-10">
         <NavLink
           to="/"
           className={({ isActive }) => {

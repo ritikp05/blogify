@@ -28,6 +28,10 @@ export default async function fetchData(url, method, page, userdata) {
 
     return data;
   }
+  if(method==="GET" && page === "UpdateBlog"){
+    const  data  = await axios.get(BaseUrl+url)
+        return data
+  } 
 
   if (method === "PUT" && page === "UpdateBlog") {
     const data = await axios.put(

@@ -92,8 +92,7 @@ const ChangePassword = () => {
               className="border-b-2 border-blue-700 w-10/12 outline-none"
               placeholder="Confirm new password"
               autoComplete="off"
-    
-          />
+            />
 
             {showPassword.confirmPassword ? (
               <FaRegEye className="text-xl" onClick={confirmPasswordHandler} />

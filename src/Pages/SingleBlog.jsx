@@ -43,7 +43,7 @@ toast.success(response.data.msg);
                     <FaRegUserCircle className="text-base" />
                     <h1 className="tracking-widest mb-1">{blog?.userId?.name}</h1>
                 </div>
-                <div className="flex flex-col sm:flex-row  items-center  mb-1 gap-1 sm:gap-4 mr-2">
+                <div className="flex flex-row  items-center  mb-1  gap-4 mr-2">
 
                     <button className=" rounded-xl font-Bubbler  tracking-widest One text-blue-500 text-xl">
                         <Link to={`/update/${id}`}>
