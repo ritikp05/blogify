@@ -11,6 +11,7 @@ const Blogs = ({ category, loading, Setloading }) => {
   useEffect(() => {
     fetchData(`/api/blog/category/${category}`, "GET","Blogs")
       .then((res) => {
+      console.log(res);
         setBlogs(res.blogs);
         Setloading(false);
       })
